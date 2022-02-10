@@ -14,12 +14,17 @@ import {
   Flex
 } from '@chakra-ui/react';
 import {
+  PhoneIcon,
   EmailIcon,
 } from '@chakra-ui/icons';
- function LoginIn() {
+
+function RegistrationForm() {
+
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [emailAdr, setEmailAdr] = useState('');
   const [password, setPassword] = useState('');
-  const IsInvalid = password === '' || emailAdr === '';
+  const [confirmationOfPass, setConfPass] = useState('');
+  const IsInvalid = password === '' || emailAdr === '' || phoneNumber === '' || confirmationOfPass !== password;
 
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
@@ -29,7 +34,19 @@ import {
       <Flex minHeight='100vh' width='full' align = 'center' justifyContent='center'>
       <Container p={12} rounded={6}>
         <Stack spacing={2}>
-          <Text fontSize="xl" align="center">FIND:BIT</Text>
+          <Text fontSize="xl" align="center">Create your FIND:BIT Account</Text>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents='none'
+              children={<PhoneIcon color='gray.300' />} />
+            <Input
+              isRequired
+              id='phone'
+              type='phone'
+              placeholder='Phone number'
+              value={phoneNumber}
+              onChange={({ target }) => setPhoneNumber(target.value)} />
+          </InputGroup>
 
           <InputGroup>
             <InputLeftElement
@@ -57,11 +74,20 @@ import {
               </Button>
             </InputRightElement>
           </InputGroup>
-          <Button colorScheme='orange' disabled={IsInvalid} >Log In :D</Button>
+
+          <Input
+            onPaste={(e) => { e.preventDefault(); return false; } }
+            onCopy={(e) => { e.preventDefault(); return false; } }
+            pr='4.5rem'
+            type='password'
+            placeholder='Confirm Password'
+            value={confirmationOfPass}
+            onChange={({ target }) => setConfPass(target.value)} />
+          <Button colorScheme='orange' disabled={IsInvalid} >Create :D</Button>
           <Text fontSize="md" align="center">Already have an account?</Text>
           <Text fontSize="xs" align="center">
-            <Link color="orange">
-            <a href = "/">Create</a>
+            <Link color="orange" href = '/log'>
+              Log In
             </Link>
           </Text>
       </Stack>
@@ -69,6 +95,5 @@ import {
     </Flex>
     </ChakraProvider>
   )
-  
 }
-export default LoginIn;
+export default RegistrationForm;
