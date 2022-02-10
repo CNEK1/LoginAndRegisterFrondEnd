@@ -17,13 +17,9 @@ import {
   PhoneIcon,
   EmailIcon,
 } from '@chakra-ui/icons';
-import { Link as ReachLink } from '@chakra-ui/react';
-import { Footer } from './Footer';
-
-
-
 
 function RegistrationForm() {
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailAdr, setEmailAdr] = useState('');
   const [password, setPassword] = useState('');
@@ -33,12 +29,6 @@ function RegistrationForm() {
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
 
-  const handleCreateAccount = (event) => {
-    event.preventDefault();
-    console.log(phoneNumber)
-    console.log(emailAdr)
-    console.log(password)
-  }
   return (
     <ChakraProvider theme={theme}>
       <Flex minHeight='100vh' width='full' align = 'center' justifyContent='center'>
@@ -63,7 +53,6 @@ function RegistrationForm() {
               pointerEvents='none'
               children={<EmailIcon color='gray.300' />} />
             <Input
-              isRequired
               id='email'
               type='email'
               placeholder='Email'
@@ -89,23 +78,21 @@ function RegistrationForm() {
           <Input
             onPaste={(e) => { e.preventDefault(); return false; } }
             onCopy={(e) => { e.preventDefault(); return false; } }
-            isRequired
             pr='4.5rem'
             type='password'
             placeholder='Confirm Password'
             value={confirmationOfPass}
             onChange={({ target }) => setConfPass(target.value)} />
-          <Button colorScheme='orange' disabled={IsInvalid} onClick={handleCreateAccount}>Create :D</Button>
+          <Button colorScheme='orange' disabled={IsInvalid} >Create :D</Button>
           <Text fontSize="md" align="center">Already have an account?</Text>
           <Text fontSize="xs" align="center">
-            <Link as = {ReachLink} color="orange" to = '/LogIn'>
-              Log in
+            <Link color="orange" to = '/log'>
+              <a href = "/log">Log In</a>
             </Link>
           </Text>
       </Stack>
     </Container>
     </Flex>
-    <Footer/>
     </ChakraProvider>
   )
 }
